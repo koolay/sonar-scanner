@@ -1,4 +1,4 @@
-FROM java:8-jre-alpine
+FROM openjdk:jre-alpine
 MAINTAINER mitch.hulscher@lib.io
 
 ENV VERSION=2.8
@@ -12,4 +12,4 @@ RUN apk add -U curl unzip \
 
 WORKDIR /sonar-scanner-${VERSION}/bin
 
-CMD ./sonar-scanner
+ENTRYPOINT /sonar-scanner-${VERSION}/bin/sonar-scanner
