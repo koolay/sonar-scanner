@@ -9,6 +9,10 @@ RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-sc
     && unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \
     && rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
 
-RUN chmod +x ${SONAR_SCANNER_HOME}/bin/* && ln -s ${SONAR_SCANNER_HOME}/bin/sonar-scanner /usr/bin/sonar-scanner
+COPY run.sh /usr/bin/scanner
 
-ENTRYPOINT /usr/bin/sonar-scanner
+RUN chmod +x ${SONAR_SCANNER_HOME}/bin/* \
+    && chmod +x /usr/bin/scanner \
+    && ln -s ${SONAR_SCANNER_HOME}/bin/sonar-scanner /usr/bin/sonar-scanner
+
+ENTRYPOINT /usr/bin/scanner
