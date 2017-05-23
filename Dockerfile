@@ -9,6 +9,11 @@ RUN apk add -U curl unzip \
  && unzip /opt/sonar-scanner.zip \
  && rm -f /opt/sonar-scanner.zip \
  && rm -f /opt/sonar-scanner-${VERSION}/conf/sonar-scanner.properties \
- && apk del curl unzip
+ && apk del curl unzip \
+ && ln -s /opt/sonar-scanner-${VERSION}-linux/bin/sonar-scanner /usr/bin/sonar-scanner \
+ && chmod +x /usr/bin/sonar-scanner
 
-ENTRYPOINT /opt/sonar-scanner-${VERSION}-linux/bin/sonar-scanner
+ENTRYPOINT sonar-scanner
+
+
+
