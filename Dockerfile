@@ -13,4 +13,4 @@ RUN apk add -U curl unzip \
 
 WORKDIR /sonar-scanner-${VERSION}/bin
 
-ENTRYPOINT /sonar-scanner-${VERSION}/bin/sonar-scanner
+# ENTRYPOINT /sonar-scanner-${VERSION}/bin/sonar-scanner
