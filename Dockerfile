@@ -1,19 +1,11 @@
-FROM openjdk:jre-alpine
-MAINTAINER mitch.hulscher@lib.io
+FROM openjdk:8-jre
 
-ENV VERSION=3.0.3.778
+ENV SONAR_SCANNER_VERSION 3.0.3.778
+ENV SONAR_SCANNER_HOME /opt/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
 
 WORKDIR /opt
-RUN apk add -U curl unzip \
- && curl -Lo /opt/sonar-scanner.zip https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${VERSION}-linux.zip \
- && unzip /opt/sonar-scanner.zip \
- && rm -f /opt/sonar-scanner.zip \
- && rm -f /opt/sonar-scanner-${VERSION}/conf/sonar-scanner.properties \
- && apk del curl unzip \
- && ln -s /opt/sonar-scanner-${VERSION}-linux/bin/sonar-scanner /usr/bin/sonar-scanner \
- && chmod +x /usr/bin/sonar-scanner
 
-ENTRYPOINT sonar-scanner
-
-
-
+RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \
+    && unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip \
+    && rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+RUN chmod +x ${SONAR_SCANNER_HOME}/bin/* && ln -s ${SONAR_SCANNER_HOME}/bin/sonar-scanner /usr/bin/sonar-scanner
