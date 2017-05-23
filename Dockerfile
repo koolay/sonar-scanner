@@ -1,7 +1,7 @@
 FROM openjdk:jre-alpine
 MAINTAINER mitch.hulscher@lib.io
 
-ENV VERSION=2.8
+ENV VERSION=3.0.3
 
 RUN apk add -U curl unzip \
  && curl -Lo /sonar-scanner.zip https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-${VERSION}.zip \
